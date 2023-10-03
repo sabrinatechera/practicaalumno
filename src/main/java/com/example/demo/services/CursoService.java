@@ -12,12 +12,10 @@ public interface CursoService {
 
     List<Curso> findAllCursos();
 
+
     void updateCurso(String titulo, String descripcion, LocalDate fechaCreacion, Long id) throws Exception;
 
     void deleteCurso(Long id) throws Exception;
-
-    Curso buscarCursoPorTitulo(String titulo);
-
 
     Curso findById(Long cursoId);
 }

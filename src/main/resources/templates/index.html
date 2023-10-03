@@ -32,10 +32,11 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class=" navbar-nav">
-                <a class="nav-link" href="/"> crear/ver Curso"</a>
-                <a class="nav-link" href="/alumno/MostrarActivas "> Sin cumplir</a>
-                <a class="nav-link" href="/alumno/mostarCumplidas "> Cumplidas</a>
-                <a class="nav-link" href="listar.html"> Listar Alumnos</a>
+                <a class="nav-link" th:href="@{/cursos}">Crear/Ver Curso</a>
+                <a class="nav-link" th:href="@{/aprobados}">Aprobado</a>
+                <a class="nav-link" th:href="@{/alumno/mostarCumplidas}">Blablablabla</a>
+                <a class="nav-link" th:href="@{/listarAlumnos}">Listar Alumnos</a>
+                <a class="nav-link" th:href="@{/curso/listarcursos}">Listar Cursos</a>
             </div>
         </div>
     </div>

@@ -85,10 +85,10 @@ public class CursoServiceImpl implements CursoService {
 
 
     }
-    @Override
-    public Curso buscarCursoPorTitulo(String titulo) {
-        return cursoRepository.findByTitulo(titulo);
-    }
+//    @Override
+//    public Curso buscarCursoPorTitulo(String titulo) {
+//        return cursoRepository.findByTitulo(titulo);
+//    }
 
     @Override
     public Curso findById(Long cursoId) {

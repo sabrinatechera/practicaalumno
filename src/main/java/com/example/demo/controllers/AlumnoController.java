@@ -43,7 +43,7 @@ public class AlumnoController {
             Curso curso = cursoService.findById(cursoId);// busca el curso pasado por id desde el front
             modelo.addAttribute("cursos", cursoService.findAllCursos());
             alumnoService.createAlumno(nombre, apellido, fechaNacimiento, curso, imagen);
-            modelo.put("exito", "El alumno se ha creado exitosamente!");
+           // modelo.put("exito", "El alumno se ha creado exitosamente!");
             return "redirect:/index.html";
 
         } catch (Exception e) {
