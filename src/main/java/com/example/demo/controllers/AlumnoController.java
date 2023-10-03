@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class AlumnoController {
     }
 
 
-    @GetMapping("/")//funciona
+    @GetMapping("/")//funciona te redirige al index cuando corres el sistema
     public String alumno(ModelMap modelo) {
         modelo.addAttribute("cursos", cursoService.findAllCursos());
         return "index.html";
@@ -34,15 +36,14 @@ public class AlumnoController {
     }
 
 
-    @PostMapping("/createAlumnos")
+    @PostMapping("/createAlumno")
     public String agregarAlumno(@RequestParam String nombre, @RequestParam String apellido,
-                                @RequestParam LocalDate fechaNacimiento, @RequestParam Long cursoId,
-                                @RequestParam Imagen imagen, ModelMap modelo) throws Exception {
+                                @RequestParam LocalDate fechaNacimiento, @RequestParam Long cursoId, ModelMap modelo, MultipartFile archivo) throws Exception {
         try {
 
             Curso curso = cursoService.findById(cursoId);// busca el curso pasado por id desde el front
             modelo.addAttribute("cursos", cursoService.findAllCursos());
-            alumnoService.createAlumno(nombre, apellido, fechaNacimiento, curso, imagen);
+            alumnoService.createAlumno(nombre, apellido, fechaNacimiento, curso, archivo);
            // modelo.put("exito", "El alumno se ha creado exitosamente!");
             return "redirect:/index.html";
 
@@ -61,13 +62,6 @@ public class AlumnoController {
     }
 
 
-    @PostMapping("/editar")//este se ejecuta cuando se aprieta el boton de guardar edicion
-    public String editarAlumno(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam LocalDate fechaNacimiento, @RequestParam Long cursoId) {
-        // Valida los datos y llama a editarAlumno en tu servicio
-        // Maneja las excepciones aquí si es necesario
-        // Después, redirige a la página de listado o muestra un mensaje de éxito
-        return "redirect:/alumnos/listar";
-    }
 
     @GetMapping("/editar/{id}") //    aca mostramos la vista de edicioon de alumno
 
@@ -79,6 +73,14 @@ public class AlumnoController {
         return "alumnos/editar";
     }
 
+    @GetMapping("/mostrarAlumno/{id}")
+    public String mostrarCurso(@PathVariable Long id, ModelMap model) {
+
+        Curso curso= cursoService.findById(id);
+        model.put("curso", curso);
+        return "/mostarCurso";//este no existe aun
+
+    }
 
 //    @GetMapping("/alumnosEnCurso/{cursoId}")
 //    public String obtenerAlumnosEnCurso(@PathVariable Long cursoId, ModelMap model) {
@@ -95,12 +97,7 @@ public class AlumnoController {
         return "redirect:/alumnos/listar";
     }
 
-   /* @GetMapping("/formulario-alumno")
-    public String mostrarFormularioAlumno(ModelMap model) {
-        List<Curso> cursos = cursoService.listarTodosLosCursos();
-        model.addAttribute("cursos", cursos);
-        return "formularioAlumno";
-    }
+   /*
     @GetMapping("/buscar")
     public String buscarAlumnos(@RequestParam String nombreApellido, ModelMap model) {
         List<Alumno> alumnos = alumnoService.buscarAlumnosPorNombreOApellido(nombreApellido);
@@ -111,6 +108,13 @@ public class AlumnoController {
     public String mostrarFormularioAgregarAlumno(ModelMap model) {
         // Aquí puedes cargar datos necesarios, como la lista de cursos, para el formulario de agregar alumno
         return "alumnos/agregar";
+    }
+     @PostMapping("/editar")//este se ejecuta cuando se aprieta el boton de guardar edicion
+    public String editarAlumno(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam LocalDate fechaNacimiento, @RequestParam Long cursoId) {
+        // Valida los datos y llama a editarAlumno en tu servicio
+        // Maneja las excepciones aquí si es necesario
+        // Después, redirige a la página de listado o muestra un mensaje de éxito
+        return "redirect:/alumnos/listar";
     }
 
 */

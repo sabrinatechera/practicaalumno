@@ -4,10 +4,10 @@ import com.example.demo.entities.Alumno;
 import com.example.demo.entities.Curso;
 import com.example.demo.entities.Imagen;
 import com.example.demo.repository.AlumnoRepository;
-import com.example.demo.repository.ImagenRepository;
 import com.example.demo.services.AlumnoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.services.ImagenService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 
 import java.util.List;
@@ -15,19 +15,18 @@ import java.util.List;
 @Service
 public class AlumnoServiceImpl implements AlumnoService {
 
+
     private final AlumnoRepository alumnoRepository;
-    private final ImagenRepository imagenRepository;
+    private final ImagenService imagenService;
 
 
-    @Autowired
-    public AlumnoServiceImpl(AlumnoRepository alumnoRepository, ImagenRepository imagenRepository) {
+    public AlumnoServiceImpl(AlumnoRepository alumnoRepository, ImagenService imagenService) {
         this.alumnoRepository = alumnoRepository;
-        this.imagenRepository = imagenRepository;
+        this.imagenService = imagenService;
     }
 
-
     @Override
-    public void createAlumno(String nombre, String apellido, LocalDate fechaNacimiento, Curso curso, Imagen imagen) throws Exception {
+    public void createAlumno(String nombre, String apellido, LocalDate fechaNacimiento, Curso curso, MultipartFile archivo) throws Exception {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new Exception("El nombre del alumno es obligatorio.");
@@ -44,18 +43,16 @@ public class AlumnoServiceImpl implements AlumnoService {
         if (curso == null) {
             throw new Exception("El curso es obligatorio para inscribir al alumno.");
         }
-
+        Imagen imagen = imagenService.guardar(archivo);
         Alumno alumno = new Alumno();
         alumno.setNombre(nombre);
         alumno.setApellido(apellido);
         alumno.setFechaNacimiento(fechaNacimiento);
-        alumno.setFechaInscripcion( LocalDate.now());
+        alumno.setFechaInscripcion(LocalDate.now());
         alumno.setAprobado(false);
         alumno.setCurso(curso);
-        if (imagen != null) {
-            imagenRepository.save(imagen);
-            alumno.setImagen(imagen);
-        }
+        alumno.setImagen(imagen);
+
         alumnoRepository.save(alumno);
     }
 
@@ -87,6 +84,7 @@ public class AlumnoServiceImpl implements AlumnoService {
     public void eliminarAlumnoPorId(Long id) {
         alumnoRepository.deleteById(id);
     }
+
     @Override
     public void aprobarAlumno(Long id, boolean aprobado) {
         Alumno alumno = alumnoRepository.findById(id).orElse(null);
@@ -95,6 +93,7 @@ public class AlumnoServiceImpl implements AlumnoService {
             alumnoRepository.save(alumno);
         }
     }
+
     @Override
     // Buscar alumnos por nombre o apellido??
     public List<Alumno> buscarAlumnosPorNombreOApellido(String nombreApellido) {

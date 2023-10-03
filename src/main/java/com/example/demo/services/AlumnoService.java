@@ -3,18 +3,15 @@ package com.example.demo.services;
 import com.example.demo.entities.Alumno;
 import com.example.demo.entities.Curso;
 import com.example.demo.entities.Imagen;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public interface AlumnoService {
 
 
-
-
-
-
-
-    void createAlumno(String nombre, String apellido, LocalDate fechaNacimiento, Curso curso, Imagen imagen) throws Exception;
+    void createAlumno(String nombre, String apellido, LocalDate fechaNacimiento, Curso curso, MultipartFile archivo) throws Exception;
 
     List<Alumno> findAllAlumnos();
 
