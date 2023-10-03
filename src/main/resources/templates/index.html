@@ -45,40 +45,40 @@
 <body class="container my-5 ">
 
 
-    <h1>Formulario de inscripción de alumnos</h1>
+<h1>Formulario de inscripción de alumnos</h1>
 
-    <form th:action="@{/createAlumno}" method="post" enctype="multipart/form-data">
+<form th:action="@{/createAlumno}" method="post" enctype="multipart/form-data">
 
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" placeholder="Nombre" class="form-control" id="nombre" name="nombre" required>
-        </div>
-        <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" placeholder="Apellido" class="form-control" id="apellido" name="apellido" required>
-        </div>
-        <div class="mb-3">
-            <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-            <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-        </div>
-        <div class="mb-3">
-            <select id="cursoId" name="cursoId" required>
-                <option value="">Elija Curso</option>
-                <option th:each="curso : ${cursos}"
-                        th:value="${curso.id}"
-                        th:text="${curso.titulo}">
+    <div class="mb-3">
+        <label for="nombre" class="form-label" style="color: #4CAF50;">Nombre</label>
+        <input type="text" placeholder="Nombre" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label"  style="color: #4CAF50;">Apellido</label>
+        <input type="text" placeholder="Apellido" class="form-control" id="apellido" name="apellido" required>
+    </div>
+    <div class="mb-3">
+        <label for="fecha_nacimiento" class="form-label"  style="color: #4CAF50;">Fecha de nacimiento</label>
+        <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
+    </div>
+    <div class="mb-3">
+        <select id="cursoId" name="cursoId" required>
+            <option value=""  style="color: #4CAF50;">Elija Curso</option>
+            <option th:each="curso : ${cursos}"
+                    th:value="${curso.id}"
+                    th:text="${curso.titulo}">
 
-                </option>
-            </select><br>
-        </div>
-        <div class="mb-3">
-            <label >Imagen de perfil</label>
-            <input type="file" class="form-control" id="archivo" name="archivo">
-        </div>
-        <div class="mb-3">
-            <input type="submit" class="btn btn-primary" value="Crear Alumno">
-        </div>
-    </form>
+            </option>
+        </select><br>
+    </div>
+    <div class="mb-3">
+        <label  style="color: #4CAF50;">Imagen de perfil</label>
+        <input type="file" class="form-control" id="archivo" name="archivo">
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-primary" value="Crear Alumno">
+    </div>
+</form>
 
 
 </body>
