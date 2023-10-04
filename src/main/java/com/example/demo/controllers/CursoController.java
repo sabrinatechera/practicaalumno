@@ -1,9 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Curso;
-import com.example.demo.services.AlumnoService;
 import com.example.demo.services.CursoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +13,14 @@ import java.util.List;
 @RequestMapping("/curso")
 public class CursoController {
 
-    @Autowired
+
     private  CursoService cursoService;
 
-    @Autowired
-    private AlumnoService alumnoService;
+    public CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
+    }
 
-
-
-
-    @GetMapping("/listarcursos")// este funcion asi
+    @GetMapping("/listarcursos")// este funcion asi http://localhost:8080/curso/listarcursos
     public String listarCursos(ModelMap model) {
         List<Curso> cursos = cursoService.findAllCursos();
         model.addAttribute("cursos", cursos);
@@ -32,20 +28,27 @@ public class CursoController {
 
     }
 
-    @GetMapping("/formulario-curso")
-    public String mostrarFormularioCurso() {
-        return "formularioCurso";
+
+    @GetMapping("/cursoForm")
+    public String crearCursoForm(ModelMap modelo) {
+        modelo.addAttribute("cursos", cursoService.findAllCursos());
+        return "/cursos";
     }
 
-   @PostMapping("/crear-curso")
-    public String crearCurso(@RequestParam String titulo, @RequestParam String descripcion, LocalDate hora) throws Exception {
-        cursoService.createCurso(titulo, descripcion,hora);
-
-        return "redirect:/cursos";
+    @PostMapping("/crearCurso")
+    public String crearCurso(String titulo, String descripcion, LocalDate fechaCreacion) {
+        try {
+            cursoService.createCurso(titulo, descripcion,fechaCreacion);
+          //  model.addAttribute("exito", "Curso creado exitosamente");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+            //model.addAttribute("error", e.getMessage());
+     //   }
+        return "redirect:/curso/cursoForm";
     }
 
-
-    @GetMapping("/mostrarCurso/{id}")// este funcion asi
+    @GetMapping("/mostrarCurso/{id}")
     public String mostrarCurso(@PathVariable Long id, ModelMap model) {
 
         Curso curso= cursoService.findById(id);
@@ -53,6 +56,11 @@ public class CursoController {
         return "/mostarCurso";//este no existe aun
 
     }
+
+
+
+
+
 }
 
 

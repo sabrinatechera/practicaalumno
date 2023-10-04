@@ -36,7 +36,10 @@ public class CursoServiceImpl implements CursoService {
             throw new Exception("Ya existe un curso con el mismo título");
         }
 
-        Curso curso = new Curso(titulo, descripcion, fechaCreacion != null ? fechaCreacion : LocalDate.now());
+        Curso curso = new Curso();
+        curso.setTitulo(titulo);
+        curso.setDescripcion(descripcion);
+        curso.setFechaCreacion(LocalDate.now());
         cursoRepository.save(curso);
     }
 
@@ -85,10 +88,6 @@ public class CursoServiceImpl implements CursoService {
 
 
     }
-//    @Override
-//    public Curso buscarCursoPorTitulo(String titulo) {
-//        return cursoRepository.findByTitulo(titulo);
-//    }
 
     @Override
     public Curso findById(Long cursoId) {

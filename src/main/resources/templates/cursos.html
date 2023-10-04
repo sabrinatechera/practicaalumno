@@ -32,10 +32,10 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class=" navbar-nav">
-                <a class="nav-link" href="/alumno/crearPersona "> crear/verpersona"</a>
+                <a class="nav-link" href="/alumno/crearPersona "> crear && ver Cursos"</a>
                 <a class="nav-link" href="/alumno/MostrarActivas "> Sin cumplir</a>
-                <a class="nav-link" href="/alumno/mostarCumplidas "> Cumplidas</a>
-                <a class="nav-link" href="/alumno/listarAlumnos "> Buscar</a>
+                <a class="nav-link" th:href="@{/listarAlumnos}">Listar Alumnos</a>
+                <a class="nav-link" th:href="@{/curso/listarcursos}">Listar Cursos</a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 
 <h1>Formulario de Creacion de Cursos</h1>
 
-<form th:action="@{/crearAlumno}" method="post" enctype="multipart/form-data">
+<form th:action="@{/curso/crearCurso}" method="POST" >
 
     <div class="mb-3">
         <label for="titulo" class="form-label">Titulo de Curso</label>
@@ -57,14 +57,13 @@
         <input type="text" placeholder="descripcion" class="form-control" id="descripcion" name="descripcion" required>
     </div>
 
-
     <div class="mb-3">
         <input type="submit" class="btn btn-primary" value="Crear Curso">
     </div>
 </form>
 
 <div class="card-group my-5">
-    <div th:each="curso:${cursos}">
+    <div th:each="curso : ${cursos}">
         <div class="card">
 
             <div class="card-body">
