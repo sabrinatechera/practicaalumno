@@ -41,10 +41,10 @@ public class AlumnoController {
                                 @RequestParam LocalDate fechaNacimiento, @RequestParam Long cursoId, ModelMap modelo, MultipartFile archivo) throws Exception {
         try {
 
-            Curso curso = cursoService.findById(cursoId);// busca el curso pasado por id desde el front
+            Curso curso = cursoService.findById(cursoId);
             modelo.addAttribute("cursos", cursoService.findAllCursos());
             alumnoService.createAlumno(nombre, apellido, fechaNacimiento, curso, archivo);
-           // modelo.put("exito", "El alumno se ha creado exitosamente!");
+            // modelo.put("exito", "El alumno se ha creado exitosamente!");
             return "redirect:/index.html";
 
         } catch (Exception e) {
@@ -54,34 +54,31 @@ public class AlumnoController {
         }
     }
 
-    @GetMapping("/listarAlumnos")//este esta bien. Muestra todo los alumnos
-    public String  listarAlumnos(ModelMap model) {
+    @GetMapping("/listarAlumnos")//este esta bien. Muestraa http://localhost:8080/listarAlumnos
+    public String listarAlumnos(ModelMap model) {
         List<Alumno> alumnos = alumnoService.findAllAlumnos();
-       model.addAttribute("alumnos", alumnos);
-        return "/listar" ;
+        model.addAttribute("alumnos", alumnos);
+        return "/listar";
     }
 
-
-
-    @GetMapping("/editar/{id}") //    aca mostramos la vista de edicioon de alumno
-
-    public String mostrarFormularioEditarAlumno(@PathVariable Long id, ModelMap model) {
-        Alumno alumno = alumnoService.obtenerAlumnoPorId(id);
-        model.put("alumno", alumno);
-
-        model.addAttribute("alumno", alumno);
-        return "alumnos/editar";
-    }
 
     @GetMapping("/mostrarAlumno/{id}")
-    public String mostrarCurso(@PathVariable Long id, ModelMap model) {
+    public String mostrarAlumno(@PathVariable Long id, ModelMap model) {
 
-        Curso curso= cursoService.findById(id);
-        model.put("curso", curso);
+        Alumno alumnoencontrado = alumnoService.findById(id);
+        model.put("alumno", alumnoencontrado);
         return "/mostarCurso";//este no existe aun
 
     }
+    @GetMapping("/editar/{id}") //    aca mostramos la vista de edicioon de alumno
 
+    public String mostrarFormularioEditarAlumno(@PathVariable Long id, ModelMap model) {
+        Alumno alumno = alumnoService.findById(id);
+        model.put("alumno", alumno);
+        model.addAttribute("alumno", alumno);
+        return "alumnos/editar";
+    }
+    
 //    @GetMapping("/alumnosEnCurso/{cursoId}")
 //    public String obtenerAlumnosEnCurso(@PathVariable Long cursoId, ModelMap model) {
 //        List<Alumno> alumnosEnCurso = alumnoService.obtenerAlumnosEnCurso(cursoId);

@@ -6,6 +6,7 @@ import com.example.demo.repository.CursoRepository;
 import com.example.demo.services.CursoService;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -45,7 +46,6 @@ public class CursoServiceImpl implements CursoService {
 
     @Override
     public List<Curso> findAllCursos() {
-
         return cursoRepository.findAll();
     }
 
@@ -73,8 +73,6 @@ public class CursoServiceImpl implements CursoService {
         } else {
             throw new Exception("Curso no encontrado con ID: " + id);
         }
-
-
     }
 
     @Override
@@ -85,14 +83,20 @@ public class CursoServiceImpl implements CursoService {
         } else {
             throw new Exception(" no existe el curso con el id " + id);
         }
-
-
     }
 
     @Override
     public Curso findById(Long cursoId) {
         Optional<Curso> cursoOptional = cursoRepository.findById(cursoId);
         return cursoOptional.orElseThrow(() -> new NoSuchElementException("No se encontró el curso con el ID: " + cursoId));
+    }
+
+    public String formatter (LocalDate localDate){
+
+        String formato="dd/MM/yyyy";
+        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern(formato);
+        String fechaFormateada = dateFormatter.format(localDate);
+        return fechaFormateada;
     }
 
 }

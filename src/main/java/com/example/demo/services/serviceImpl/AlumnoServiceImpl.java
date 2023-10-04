@@ -58,11 +58,13 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     @Override
     public List<Alumno> findAllAlumnos() {
+
         return alumnoRepository.findAll();
     }
 
     @Override
-    public Alumno obtenerAlumnoPorId(Long id) {
+    public Alumno findById(Long id) {
+
         return alumnoRepository.findById(id).orElse(null);
     }
 

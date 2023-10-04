@@ -16,8 +16,7 @@ public interface AlumnoService {
     List<Alumno> findAllAlumnos();
 
     // Obtener un alumno por su ID
-    Alumno obtenerAlumnoPorId(Long id);
-
+    Alumno findById(Long id);
 
     // Editar un alumno
     void editarAlumno(Long id, String nombre, String apellido, LocalDate fechaNacimiento, Curso curso);

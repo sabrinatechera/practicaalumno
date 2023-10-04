@@ -10,15 +10,20 @@
 </head>
 <header>
     <div th:if="${exito}!=null" class="card text-white bg-success mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Exito</h5>
-            <p class="card-text" th:text="${exito}"></p>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Exito</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
         </div>
     </div>
+
     <div th:if="${error}!=null" class="card text-white bg-danger mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Error</h5>
-            <p class="card-text" th:text="${error}"></p>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Error</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
         </div>
     </div>
 </header>
@@ -46,7 +51,7 @@
 
 <h1>Formulario de Creacion de Cursos</h1>
 
-<form th:action="@{/curso/crearCurso}" method="POST" >
+<form th:action="@{/curso/crearCurso}" method="POST">
 
     <div class="mb-3">
         <label for="titulo" class="form-label">Titulo de Curso</label>
@@ -82,7 +87,7 @@
                 <div>
                     <small class="text-body-secondary">Listado de Alumnos Inscriptos :<span
                             th:text="${curso.listaAlumnos}"></span></small>
-<!--                    //<a th:ref=@{/curso/listarcurso/__${alumno.id}__}"">Mostrar Alumno</a>-->
+                    <!--                    //<a th:ref=@{/curso/listarcurso/__${alumno.id}__}"">Mostrar Alumno</a>-->
                 </div>
 
             </div>

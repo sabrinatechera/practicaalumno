@@ -22,7 +22,7 @@ public class ImagenController {
     @GetMapping("/mostrarAlumno/{id}")
        public ResponseEntity<byte[]> imagenPersona(@PathVariable Long id) {
 
-        Alumno alumno = alumnoService.obtenerAlumnoPorId(id);
+        Alumno alumno = alumnoService.findById(id);
         byte[] imagen = alumno.getImagen().getContenido();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_JPEG);
