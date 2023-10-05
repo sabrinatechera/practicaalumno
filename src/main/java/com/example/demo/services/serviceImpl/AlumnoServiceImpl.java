@@ -9,7 +9,7 @@ import com.example.demo.services.ImagenService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -101,6 +101,15 @@ public class AlumnoServiceImpl implements AlumnoService {
     public List<Alumno> buscarAlumnosPorNombreOApellido(String nombreApellido) {
         return alumnoRepository.findByNombreContainingOrApellidoContaining(nombreApellido, nombreApellido);
     }
+
+    @Override
+    public String formatterFecha (LocalDate localDate){
+
+        String formato="dd/MM/yyyy";
+        DateTimeFormatter dateFormatter =DateTimeFormatter.ofPattern(formato);
+        return dateFormatter.format(localDate);
+    }
+
 
 //    @Override  // no se si esta bien
 //    public List<Alumno> obtenerAlumnosEnCurso(Long cursoId) {

@@ -63,13 +63,15 @@ public class AlumnoController {
 
 
     @GetMapping("/mostrarAlumno/{id}")
-    public String mostrarAlumno(@PathVariable Long id, ModelMap model) {
+    public String mostrarAlumno(@PathVariable Long id, ModelMap modelo) {
 
         Alumno alumnoencontrado = alumnoService.findById(id);
-        model.put("alumno", alumnoencontrado);
-        return "/mostarCurso";//este no existe aun
-
+        modelo.put("alumno", alumnoencontrado);
+        String fechaFormateada = alumnoService.formatterFecha(alumnoencontrado.getFechaNacimiento());
+        modelo.put("fecha", fechaFormateada);
+        return "/mostarAlumno";
     }
+
     @GetMapping("/editar/{id}") //    aca mostramos la vista de edicioon de alumno
 
     public String mostrarFormularioEditarAlumno(@PathVariable Long id, ModelMap model) {
@@ -78,7 +80,7 @@ public class AlumnoController {
         model.addAttribute("alumno", alumno);
         return "alumnos/editar";
     }
-    
+
 //    @GetMapping("/alumnosEnCurso/{cursoId}")
 //    public String obtenerAlumnosEnCurso(@PathVariable Long cursoId, ModelMap model) {
 //        List<Alumno> alumnosEnCurso = alumnoService.obtenerAlumnosEnCurso(cursoId);

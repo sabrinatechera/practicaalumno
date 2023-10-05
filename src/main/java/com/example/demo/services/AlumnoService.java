@@ -31,4 +31,5 @@ public interface AlumnoService {
     // Buscar alumnos por nombre o apellido??
     List<Alumno> buscarAlumnosPorNombreOApellido(String nombreApellido);
 
+    String formatterFecha(LocalDate localDate);
 }
